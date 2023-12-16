@@ -1,0 +1,14 @@
+/* Importando estilizações de páginas */
+@import url("./styles/index.css");
+
+
+/* Importando estilizações para componentes */
+@import url("./components/input.css");
+@import url("./components/label.css");
+@import url("./components/button.css");
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}

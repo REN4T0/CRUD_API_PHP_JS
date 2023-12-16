@@ -1,0 +1,30 @@
+.input-box{
+    display: flex;
+    flex-direction: column;
+}
+
+.input{
+    width: 20rem;
+    height: 1rem;
+
+    padding: 1rem;
+
+    outline: none;
+    border-radius: 10px;
+    border: 2px solid #000;
+
+    font-size: 20px;
+}
+
+.mini-input{
+    width: 5rem;
+    height: 1rem;
+
+    padding: 1rem;
+
+    outline: none;
+    border-radius: 10px;
+    border: 2px solid #000;
+
+    font-size: 20px;
+}
