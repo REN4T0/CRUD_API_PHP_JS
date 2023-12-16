@@ -15,11 +15,12 @@
     $senha = htmlspecialchars($dados['senha']);
 
 
-    // $stmt = $conn->stmt_init();
+    // Cadastrando no banco de dados com proteção contra injeção SQL
     $stmt = $conn->prepare("INSERT INTO perfil (nome, idade, email, senha) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("siss", $nome, $idade, $email, $senha);
     $stmt->execute();
 
+    // Verificando se foi cadastrado ou não
     if($stmt->affected_rows){
         $resposta = [
             "status" => "success",
@@ -31,8 +32,6 @@
             "msg" => "Não foi possível cadastrar $nome..."
         ];
     }
-
-
 
     echo json_encode($resposta);
 ?>

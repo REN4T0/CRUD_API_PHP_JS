@@ -1,14 +1,12 @@
 body{
-    height: 100vh;
-
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: grey;
+    flex-direction: column;
 }
 
 .form{
-    width: 50%;
     padding: 2rem;
 
     display: flex;
@@ -30,4 +28,25 @@ body{
     display: flex;
     flex-direction: row;
     gap: 2rem;
+}
+
+
+
+.container{
+    width: 100%;
+
+    margin-top: 5rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.linha{
+    width: 80%;
+
+    margin-bottom: 20px;
+
+    background-color: #FFFF;
+    border-radius: 10px;
 }

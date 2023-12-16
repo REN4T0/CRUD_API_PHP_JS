@@ -1,3 +1,5 @@
+import { puxarDados } from "./puxar.js";
+
 export async function enviarDados(dados){
     // Criando a requisição
     const requisicao = await fetch("http://localhost:80/CRUD_API_PHP_JS/backend/php/receber.php", { //Nessa linha informei para onde os meus dados vão ser enviados
@@ -10,5 +12,6 @@ export async function enviarDados(dados){
     });
 
     const resposta = await requisicao.json();
+
     return resposta;
 }
