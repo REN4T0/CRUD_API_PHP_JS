@@ -58,9 +58,10 @@ window.addEventListener("click", async (evento) => {
         // Exibindo os botões de edição
         document.querySelector(`#concluir${id}`).style.display = "block";
         document.querySelector(`#cancelar${id}`).style.display = "block";
-
+        
         // Escondendo o botão de ativar edição
         elemento.style.display = "none";
+        document.querySelector(`#excluir${id}`).style.display = "none";
 
     }else if(elemento.classList.contains("cancelar")){
         const id = elemento.value;
@@ -72,6 +73,7 @@ window.addEventListener("click", async (evento) => {
         document.querySelector(`#senha${id}`).disabled = true;
 
         document.querySelector(`#editar${id}`).style.display = "block"; // Exibindo o botão de ativar edição
+        document.querySelector(`#excluir${id}`).style.display = "block"; // Exibindo o botão de excluir perfil
 
         // Desativando os botões de edição
         document.querySelector(`#concluir${id}`).style.display = "none";
@@ -90,6 +92,7 @@ window.addEventListener("click", async (evento) => {
         document.querySelector(`#senha${id}`).disabled = true;
 
         document.querySelector(`#editar${id}`).style.display = "block";
+        document.querySelector(`#excluir${id}`).style.display = "block";
         
         document.querySelector(`#cancelar${id}`).style.display = "none";
         elemento.style.display = "none";

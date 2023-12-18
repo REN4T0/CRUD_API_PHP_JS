@@ -1,14 +1,16 @@
 export function exibirDados(dados){
     const container = document.querySelector(".container");
 
+    container.innerHTML = "";
+
     for(let registros of dados){
         let div = document.createElement("div");
-        div.setAttribute("class", "linha");
+        div.setAttribute("class", "card");
         container.appendChild(div);
 
         // Criando o input para o nome
         let inputNome = document.createElement("input"); // Criando elemento
-        inputNome.setAttribute("class", "input"); // Atribuindo classe ao elemento
+        inputNome.setAttribute("class", "input-card"); // Atribuindo classe ao elemento
         inputNome.setAttribute("id", `nome${registros._id}`); // Atribuindo ID ao elemento
         inputNome.setAttribute("type", "text"); // Atribuindo o tipo de valor do input (O elemento a ser criado)
         inputNome.disabled = true; // Desativando o input (O elemento a ser criado)
@@ -17,7 +19,7 @@ export function exibirDados(dados){
 
         // Criando input para idade
         let inputIdade = document.createElement("input");
-        inputIdade.setAttribute("class", "mini-input");
+        inputIdade.setAttribute("class", "mini-input-card");
         inputIdade.setAttribute("id", `idade${registros._id}`);
         inputIdade.setAttribute("type", "number");
         inputIdade.disabled = true;
@@ -26,7 +28,7 @@ export function exibirDados(dados){
 
         // Criando input para E-mail
         let inputEmail = document.createElement("input");
-        inputEmail.setAttribute("class", "input");
+        inputEmail.setAttribute("class", "input-card");
         inputEmail.setAttribute("id", `email${registros._id}`);
         inputEmail.setAttribute("type", "email");
         inputEmail.disabled = true;
@@ -35,7 +37,7 @@ export function exibirDados(dados){
 
         // Criando input para Senha
         let inputSenha = document.createElement("input");
-        inputSenha.setAttribute("class", "input");
+        inputSenha.setAttribute("class", "input-card");
         inputSenha.setAttribute("id", `senha${registros._id}`);
         inputSenha.setAttribute("type", "password");
         inputSenha.disabled = true;

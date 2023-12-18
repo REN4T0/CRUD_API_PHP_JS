@@ -2,13 +2,42 @@
     width: 10rem;
     height: 3rem;
 
+    margin-bottom: 0.8rem;
+
     border-radius: 5px;
     border: none;
 
     font-size: 20px;
     cursor: pointer;
-
     transition: 0.3s;
+}
+
+.editar{
+    background-color: #001f86;
+    
+    font-weight: bold;
+    color: white;
+}
+
+.excluir{
+    background-color: black;
+    
+    font-weight: bold;
+    color: white;
+}
+
+.cancelar{
+    background-color: #a50000;
+    
+    font-weight: bold;
+    color: white;
+}
+
+.concluir{
+    background-color: green;
+    
+    font-weight: bold;
+    color: white;
 }
 
 .button:hover{
