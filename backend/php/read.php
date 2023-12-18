@@ -8,7 +8,7 @@
     header("Content-Type: application/json;");
     
     // Comando SQL
-    $query = "SELECT * FROM perfil";
+    $query = "SELECT * FROM perfil ORDER BY id DESC";
     $result = mysqli_query($conn, $query); // Executando o comando acima
     
     if(!$result){

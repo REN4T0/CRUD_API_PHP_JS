@@ -1,8 +1,6 @@
-import { puxarDados } from "./puxar.js";
-
-export async function enviarDados(dados){
+export async function cadastrarDados(dados){
     // Criando a requisição
-    const requisicao = await fetch("http://localhost:80/CRUD_API_PHP_JS/backend/php/receber.php", { //Nessa linha informei para onde os meus dados vão ser enviados
+    const requisicao = await fetch("http://localhost:80/CRUD_API_PHP_JS/backend/php/create.php", { //Nessa linha informei para onde os meus dados vão ser enviados
         "method":"POST",
         // Nunca esquecer que após método, deve-se abrir o "header", que é o cabeçalho do que estou enviando
         headers: {

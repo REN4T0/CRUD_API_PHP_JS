@@ -49,6 +49,14 @@ export function exibirDados(dados){
         btnEditar.textContent = "Editar";
         btnEditar.value = registros._id;
         div.appendChild(btnEditar);
+        
+        // Botão de excluir o usuário
+        let btnExcluir = document.createElement("button");
+        btnExcluir.setAttribute("class", "button excluir");
+        btnExcluir.setAttribute("id", `excluir${registros._id}`);
+        btnExcluir.textContent = "Excluir";
+        btnExcluir.value = registros._id;
+        div.appendChild(btnExcluir);
 
         // Botão de concluir a edição dos valores
         let btnConcluir = document.createElement("button");

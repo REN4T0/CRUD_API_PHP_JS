@@ -1,6 +1,7 @@
-import { enviarDados } from "../module/enviar.js";
+import { cadastrarDados } from "../module/post.js";
+import { editarDados } from "../module/put.js";
 
-export async function validarDados(dados){
+export async function validarDados(dados, atividade, id){
     // Validando a idade
     if (dados.idade < 0) return({
                             status: "error",
@@ -34,6 +35,22 @@ export async function validarDados(dados){
         });
     }
     
-    const resposta = await enviarDados(dados);
+    
+
+    // Condição que determinará para qual finalidade os dados coletados e validados serão enviados
+    switch(atividade){
+        case "cadastrar":
+            var resposta = await cadastrarDados(dados);
+            break;
+        case "editar":
+            var resposta = await editarDados(id, dados);
+            break
+        default:
+            var resposta = {
+                status: "error",
+                msg: "Ocorreu algum erro ao enviar os dados"
+            }
+    }
+
     return resposta;
 }

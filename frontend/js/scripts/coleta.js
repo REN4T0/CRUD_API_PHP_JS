@@ -1,45 +1,43 @@
 import { validarDados } from "../services/validar.js";
+import { excluirDados } from "../module/delete.js";
 
 async function coletaDados(atividade, id){
-    if(atividade === "cadastar"){
-        const nome = document.querySelector("#nome").value;
-        const idade = document.querySelector("#idade").value;
-        const email = document.querySelector("#email").value;
-        const senha = document.querySelector("#senha").value;
+    // Condição que define qual atividade será executada
+    if(atividade === "cadastrar"){ // Caso seja cadastrar será selecionado o valor dos elemntos do formulário de cadastro
+        var nome = document.querySelector("#nome").value;
+        var idade = document.querySelector("#idade").value;
+        var email = document.querySelector("#email").value;
+        var senha = document.querySelector("#senha").value;
     
-        // Validando se todos os campos foram preenchidos
-        if(nome === "" || idade === "" || email === "" || senha === ""){
-            return({
-                status: "error",
-                msg: "Todos os campos devem ser preenchidos"
-            });
-        }
-    
-        const resposta = await validarDados({
-            nome: nome,
-            idade: Number(idade),
-            email: email,
-            senha: senha
-        });
-    
-        return resposta;
-
-    }else if(atividade === "editar"){
-        const nome = document.querySelector(`#nome${id}`).value;
-        const idade = document.querySelector(`#idade${id}`).value;
-        const email = document.querySelector(`#email${id}`).value;
-        const senha = document.querySelector(`#senha${id}`).value;
-
-        document.querySelector(`#editar${id}`).style.display = "block";
-
-        document.querySelector(`#cancelar${id}`).style.display = "none";
-        elemento.style.display = "none";
+    }else if(atividade === "editar"){ // Caso seja eitar, o valor de elmentos específicos serão selecionado, com base no id do usuário a ser editado
+        var nome = document.querySelector(`#nome${id}`).value;
+        var idade = document.querySelector(`#idade${id}`).value;
+        var email = document.querySelector(`#email${id}`).value;
+        var senha = document.querySelector(`#senha${id}`).value;
     }
+    
+    // Validando se todos os campos foram preenchidos
+    if(nome === "" || idade === "" || email === "" || senha === ""){
+        return({
+            status: "error",
+            msg: "Todos os campos devem ser preenchidos"
+        });
+    }
+    
+    // Enviando os dados para validação
+    const resposta = await validarDados({
+        nome: nome,
+        idade: Number(idade),
+        email: email,
+        senha: senha
+    }, atividade, Number(id));
+
+    return resposta;
 }
 
 
 
-
+// Ao clicar em um elemento, um evento irá acontecer
 window.addEventListener("click", async (evento) => {
     const elemento = evento.target; // Obtendo o elemento clicado em questão
 
@@ -82,8 +80,27 @@ window.addEventListener("click", async (evento) => {
     }else if(elemento.classList.contains("concluir")){
         const id = elemento.value;
         
-        const resposta = await coletaDados("cadastrar", id);
+        // Enviando os dados, após concluir a edição
+        const resposta = await coletaDados("editar", id);
         console.log(resposta);
+
+        document.querySelector(`#nome${id}`).disabled = true;
+        document.querySelector(`#idade${id}`).disabled = true;
+        document.querySelector(`#email${id}`).disabled = true;
+        document.querySelector(`#senha${id}`).disabled = true;
+
+        document.querySelector(`#editar${id}`).style.display = "block";
+        
+        document.querySelector(`#cancelar${id}`).style.display = "none";
+        elemento.style.display = "none";
+        
+    }else if(elemento.classList.contains("excluir")){
+        const id = Number(elemento.value);
+
+        const resposta = await excluirDados({
+            id: id
+        });
+        console.log(resposta)
     }
 
 })
