@@ -1,5 +1,6 @@
 import { validarDados } from "../services/validar.js";
 import { excluirDados } from "../module/delete.js";
+import { alerta } from "./alert.js";
 
 async function coletaDados(atividade, id){
     // Condição que define qual atividade será executada
@@ -44,7 +45,7 @@ window.addEventListener("click", async (evento) => {
     // Condição que determinará qual atividade o elemento clicado executará
     if(elemento.classList.contains("cadastrar")){
         const resposta = await coletaDados("cadastrar", ""); // Enviando parâmetros que vão definir qual atividade a função vai realizar/chamar e, se for necessário, informar o ID do usuário do qual irei editar
-        console.log(resposta);
+        alerta(resposta);
 
     }else if(elemento.classList.contains("editar")){
         const id = elemento.value; // Selecionando o ID do usuário que estará presente no valor do botão selecionando
@@ -84,7 +85,7 @@ window.addEventListener("click", async (evento) => {
         
         // Enviando os dados, após concluir a edição
         const resposta = await coletaDados("editar", id);
-        console.log(resposta);
+        alerta(resposta);
 
         document.querySelector(`#nome${id}`).disabled = true;
         document.querySelector(`#idade${id}`).disabled = true;
@@ -103,7 +104,7 @@ window.addEventListener("click", async (evento) => {
         const resposta = await excluirDados({
             id: id
         });
-        console.log(resposta)
+        alerta(resposta);
     }
 
 })
