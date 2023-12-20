@@ -12,10 +12,12 @@
     $result = mysqli_query($conn, $query); // Executando o comando acima
     
     if(!$result){
-        $response = [
+        echo json_encode([
             "status"=> "error",
             "msg" => "Não foi possível coletar os dados do banco"
-        ];
+        ]);
+
+        exit;
     }
 
     $response = [

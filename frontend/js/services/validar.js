@@ -10,22 +10,16 @@ export async function validarDados(dados, atividade, id){
     
     
     // Verificando se a senha tem todos os parâmetros requeridos
-    if(dados.senha.length < 6 || dados.senha.length > 12){
+    if(dados.senha.length < 6){
         return({
             status: "error",
-            msg: "A senha deve ter de 6 a 12 caracteres"
+            msg: "A senha deve ter ao menos 6 caracteres"
         });
     }
-    else if(dados.senha.match(/[a-z]/g) === null){
+    else if(dados.senha.match(/[A-z]/g) === null){
         return({
             status: "error",
-            msg: "A senha deve ter ao menos 1 letra minúscula"
-        });
-    }
-    else if(dados.senha.match(/[A-Z]/g) === null){
-        return({
-            status: "error",
-            msg: "A senha deve ter ao menos 1 letra maiúscula"
+            msg: "A senha deve ter ao menos 1 letra"
         });
     }
     else if(dados.senha.match(/[0-9]/g) === null){
@@ -41,6 +35,12 @@ export async function validarDados(dados, atividade, id){
     switch(atividade){
         case "cadastrar":
             var resposta = await cadastrarDados(dados);
+
+            document.querySelector("#nome").value = "";
+            document.querySelector("#idade").value = "";
+            document.querySelector("#email").value = "";
+            document.querySelector("#senha").value = "";
+
             break;
         case "editar":
             var resposta = await editarDados(id, dados);

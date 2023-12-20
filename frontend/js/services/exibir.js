@@ -39,7 +39,7 @@ export function exibirDados(dados){
         let inputSenha = document.createElement("input");
         inputSenha.setAttribute("class", "input-card");
         inputSenha.setAttribute("id", `senha${registros._id}`);
-        inputSenha.setAttribute("type", "password");
+        inputSenha.setAttribute("type", "text");
         inputSenha.disabled = true;
         inputSenha.value = registros.senha;
         div.appendChild(inputSenha);

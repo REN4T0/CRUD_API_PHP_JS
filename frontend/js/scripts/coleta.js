@@ -5,14 +5,15 @@ import { alerta } from "./alert.js";
 async function coletaDados(atividade, id){
     // Condição que define qual atividade será executada
     if(atividade === "cadastrar"){ // Caso seja cadastrar será selecionado o valor dos elemntos do formulário de cadastro
+        
         var nome = document.querySelector("#nome").value;
-        var idade = document.querySelector("#idade").value;
+        var idade = Number(document.querySelector("#idade").value);
         var email = document.querySelector("#email").value;
         var senha = document.querySelector("#senha").value;
-    
-    }else if(atividade === "editar"){ // Caso seja eitar, o valor de elmentos específicos serão selecionado, com base no id do usuário a ser editado
+        
+    }else if(atividade === "editar"){ // Caso seja editar, o valor de elementos específicos serão selecionado, com base no id do usuário a ser editado
         var nome = document.querySelector(`#nome${id}`).value;
-        var idade = document.querySelector(`#idade${id}`).value;
+        var idade = Number(document.querySelector(`#idade${id}`).value);
         var email = document.querySelector(`#email${id}`).value;
         var senha = document.querySelector(`#senha${id}`).value;
     }
@@ -28,10 +29,10 @@ async function coletaDados(atividade, id){
     // Enviando os dados para validação
     const resposta = await validarDados({
         nome: nome,
-        idade: Number(idade),
+        idade: idade,
         email: email,
         senha: senha
-    }, atividade, Number(id));
+    }, atividade, id);
 
     return resposta;
 }
@@ -81,7 +82,7 @@ window.addEventListener("click", async (evento) => {
         elemento.style.display = "none";
 
     }else if(elemento.classList.contains("concluir")){
-        const id = elemento.value;
+        const id = Number(elemento.value);
         
         // Enviando os dados, após concluir a edição
         const resposta = await coletaDados("editar", id);

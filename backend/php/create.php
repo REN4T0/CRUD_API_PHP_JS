@@ -12,8 +12,7 @@
     $nome = htmlspecialchars($dados['nome']);
     $idade = htmlspecialchars($dados['idade']);
     $email = htmlspecialchars($dados['email']);
-    $senha = htmlspecialchars($dados['senha']);
-
+    $senha = hash("sha256", htmlspecialchars($dados['senha'])); // Criptografando a senha
 
     // Cadastrando no banco de dados com proteção contra injeção SQL
     $stmt = $conn->prepare("INSERT INTO perfil (nome, idade, email, senha) VALUES (?, ?, ?, ?)");
