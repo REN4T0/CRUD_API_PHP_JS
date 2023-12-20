@@ -14,10 +14,31 @@
     $email = htmlspecialchars($dados['email']);
     $senha = hash("sha256", htmlspecialchars($dados['senha'])); // Criptografando a senha
 
-    // Cadastrando no banco de dados com proteção contra injeção SQL
-    $stmt = $conn->prepare("INSERT INTO perfil (nome, idade, email, senha) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("siss", $nome, $idade, $email, $senha);
-    $stmt->execute();
+    // Tentando executar uma ação
+    try{
+        // Cadastrando no banco de dados com proteção contra injeção SQL
+        $stmt = $conn->prepare("INSERT INTO perfil (nome, idade, email, senha) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("siss", $nome, $idade, $email, $senha);
+        $stmt->execute();
+
+    }catch(Exception $error){ // Se a ação der errado, o erro será coletado para possível feedback
+
+        // Caso o E-mail seja repetido, um aviso será emitido
+        if(preg_match("/email/i", $error->getMessage())){
+            echo json_encode([
+                "status" => "error",
+                "msg" => "E-mail já existente. Digite outro!"
+            ]);
+
+        }else{ // Se um erro desconhecido ocorrer, outro aviso será emitido
+            echo json_encode([
+                "status" => "error",
+                "msg" => "Algum problema ocorreu. Se houver persistência do erro, reporte-o e volte mais tarde!"
+            ]);
+        }
+
+        exit;
+    }   
 
     // Verificando se foi cadastrado ou não
     if($stmt->affected_rows){

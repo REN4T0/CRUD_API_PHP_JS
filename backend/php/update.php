@@ -23,16 +23,55 @@
 
     // Se a senha for a mesma, não haverá outra criptografia. se não, a nova senha será criptografada.
     if($senha === $row["senha"]){
-        $stmt = $conn->prepare("UPDATE perfil SET nome = ?, idade = ?, email = ? WHERE id = ?");
-        $stmt->bind_param("sisi", $nome, $idade, $email, $id);
-        $stmt->execute();
+        try{
+            $stmt = $conn->prepare("UPDATE perfil SET nome = ?, idade = ?, email = ? WHERE id = ?");
+            $stmt->bind_param("sisi", $nome, $idade, $email, $id);
+            $stmt->execute();
+
+        }catch(Exception $error){
+
+            // Verificando se o E-mail é repetido
+            if(preg_match("/email/i", $error->getMessage())){
+                echo json_encode([
+                    "status" => "error",
+                    "msg" => "E-mail já existente. Digite outro!"
+                ]);
+    
+            }else{
+                echo json_encode([
+                    "status" => "error",
+                    "msg" => "Algum problema ocorreu. Se houver persistência do erro, reporte-o e volte mais tarde!"
+                ]);
+            }
+    
+            exit;
+        }
 
     }else{
         $newCript = hash("sha256", $senha);
+        
+        try{
+            $stmt = $conn->prepare("UPDATE perfil SET nome = ?, idade = ?, email = ?, senha = ? WHERE id = ?");
+            $stmt->bind_param("sissi", $nome, $idade, $email, $newCript, $id);
+            $stmt->execute();
 
-        $stmt = $conn->prepare("UPDATE perfil SET nome = ?, idade = ?, email = ?, senha = ? WHERE id = ?");
-        $stmt->bind_param("sissi", $nome, $idade, $email, $newCript, $id);
-        $stmt->execute();
+        }catch(Exception $error){
+
+            if(preg_match("/email/i", $error->getMessage())){
+                echo json_encode([
+                    "status" => "error",
+                    "msg" => "E-mail já existente. Digite outro!"
+                ]);
+    
+            }else{
+                echo json_encode([
+                    "status" => "error",
+                    "msg" => "Algum problema ocorreu. Se houver persistência do erro, reporte-o e volte mais tarde!"
+                ]);
+            }
+    
+            exit;
+        }
     }
 
     if($stmt->affected_rows){
